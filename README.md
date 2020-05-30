@@ -10,7 +10,7 @@
 
 `$ node index.js`
 
-curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
+`curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
   #### get
   
   `http://localhost:1337/webhook?hub.verify_token=lutfi&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe`
