@@ -24,62 +24,62 @@ app.get('/', function(req, res){
     res.send("Hi I'm a bot.");
 });
 
-function handlePostback(sender_psid, received_postback) {
-    let response;
+// function handlePostback(sender_psid, received_postback) {
+//     let response;
 
-    // Get the payload for the postback
-    let payload = received_postback.payload;
+//     // Get the payload for the postback
+//     let payload = received_postback.payload;
 
-    // Set the response based on the postback payload
-    if (payload === 'CAT_PICS') {
-        response = imageTemplate('cats', sender_psid);
-        callSendAPI(sender_psid, response, function(){
-            callSendAPI(sender_psid, askTemplate('Show me more'));
-        });
-    } else if (payload === 'DOG_PICS') {
-        response = imageTemplate('dogs', sender_psid);
-        callSendAPI(sender_psid, response, function(){
-            callSendAPI(sender_psid, askTemplate('Show me more'));
-        });
-    } else if(payload === 'GET_STARTED'){
-        response = askTemplate('Are you a Cat or Dog Person?');
-        callSendAPI(sender_psid, response);
-    }
-    // Send the message to acknowledge the postback
-}
+//     // Set the response based on the postback payload
+//     if (payload === 'CAT_PICS') {
+//         response = imageTemplate('cats', sender_psid);
+//         callSendAPI(sender_psid, response, function(){
+//             callSendAPI(sender_psid, askTemplate('Show me more'));
+//         });
+//     } else if (payload === 'DOG_PICS') {
+//         response = imageTemplate('dogs', sender_psid);
+//         callSendAPI(sender_psid, response, function(){
+//             callSendAPI(sender_psid, askTemplate('Show me more'));
+//         });
+//     } else if(payload === 'GET_STARTED'){
+//         response = askTemplate('Are you a Cat or Dog Person?');
+//         callSendAPI(sender_psid, response);
+//     }
+//     // Send the message to acknowledge the postback
+// }
 
-//ask template
-function askTemplate(text){
-    return {
-        "attachment":{
-            "type":"template",
-            "payload":{
-                "template_type":"button",
-                "text": text,
-                "buttons":[
-                    {
-                        "type":"postback",
-                        "title":"YES",
-                        "payload":"YES"
-                    },
-                    {
-                        "type":"postback",
-                        "title":"NO",
-                        "payload":"NO"
-                    }
-                ]
-            }
-        }
-    }
-}
+// //ask template
+// function askTemplate(text){
+//     return {
+//         "attachment":{
+//             "type":"template",
+//             "payload":{
+//                 "template_type":"button",
+//                 "text": text,
+//                 "buttons":[
+//                     {
+//                         "type":"postback",
+//                         "title":"YES",
+//                         "payload":"YES"
+//                     },
+//                     {
+//                         "type":"postback",
+//                         "title":"NO",
+//                         "payload":"NO"
+//                     }
+//                 ]
+//             }
+//         }
+//     }
+// }
 
 
 //facebook
 function sendMessage(event) {
     let sender = event.sender.id;
     let text = event.message.text;
-    let arrayUser = [];
-    if (text === 'Hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
+    // let arrayUser = [];
+    if (text === 'Hi' || text === 'hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
         text = 'Hello, what is your first name ?';
     }else{
         text = text;
@@ -109,7 +109,6 @@ app.post('/webhook', (req, res) => {
     if (body.object === 'page') {
   
       body.entry.forEach(function(entry) {
-        handlePostback(entry.sender.id, entry.messaging[0].message);
         entry.messaging.forEach((event) => {
             if (event.message && event.message.text) {
                 sendMessage(event);
