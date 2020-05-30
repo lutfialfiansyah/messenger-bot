@@ -78,14 +78,14 @@ function askTemplate(text){
 function sendMessage(event) {
     let sender = event.sender.id;
     let text = event.message.text;
-    // let arrayUser = [];
+    let arrayUser = [];
     let reqBody = {
         recipient: {id: sender},
-        message: {text: text}
+        message: askTemplate('Do you want to know how many days are left with your birthday ?')
     };
     let reqBodyAsk = {
         recipient: {id: sender},
-        message: askTemplate(' ?')
+        message: askTemplate('Do you want to know how many days are left with your birthday ?')
     };
     let textmsg = 'Hello, what is your first name ?';
     if (text === 'Hi' || text === 'hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
@@ -93,10 +93,12 @@ function sendMessage(event) {
             recipient: {id: sender},
             message: {text: textmsg}
         }
+    }else if(reqBody.message === 'Hi' || reqBody.message === 'hi' || reqBody.message === 'Hai' || reqBody.message === 'Hey' || reqBody.message === 'Hallo'){
+        arrayUser.push(reqBody.message);
     }else{
         reqBody = reqBody;
     }
-  
+    console.log(arrayUser);
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token: PAGE_ACCESS_TOKEN},
