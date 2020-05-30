@@ -93,7 +93,7 @@ function sendMessage(event) {
             recipient: {id: sender},
             message: {text: textmsg}
         }
-    }else if(reqBody.message === 'Hi' || reqBody.message === 'hi' || reqBody.message === 'Hai' || reqBody.message === 'Hey' || reqBody.message === 'Hallo'){
+    }else if(reqBody.message !== 'Hi' || reqBody.message !== 'hi' || reqBody.message !== 'Hai' || reqBody.message !== 'Hey' || reqBody.message !== 'Hallo'){
         arrayUser.push(reqBody.message);
     }else{
         reqBody = reqBody;
