@@ -3,6 +3,7 @@
 const
   express = require('express'),
   bodyParser = require('body-parser'),
+  request = require('request'),
   app = express().use(bodyParser.json()); // creates express http server
 
 // Sets server port and logs message on success
@@ -22,6 +23,27 @@ app.get('/', function(req, res){
 });
 
 //facebook
+function sendMessage(event) {
+    let sender = event.sender.id;
+    let text = event.message.text;
+  
+    request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token: PAGE_ACCESS_TOKEN},
+      method: 'POST',
+      json: {
+        recipient: {id: sender},
+        message: {text: text}
+      }
+    }, function (error, response) {
+      if (error) {
+          console.log('Error sending message: ', error);
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+      }
+    });
+  }
+  
 app.post('/webhook', (req, res) => {  
  
     let body = req.body;
@@ -29,11 +51,14 @@ app.post('/webhook', (req, res) => {
     if (body.object === 'page') {
   
       body.entry.forEach(function(entry) {
-  
-        let webhook_event = entry.messaging[0];
-        console.log(webhook_event);
+        entry.messaging.forEach((event) => {
+            if (event.message && event.message.text) {
+              sendMessage(event);
+            }
+          });
+        // let webhook_event = entry.messaging[0];
+        // console.log(webhook_event);
       });
-  
       res.status(200).send('EVENT_RECEIVED');
     } else {
       res.sendStatus(404);
