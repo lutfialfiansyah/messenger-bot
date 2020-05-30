@@ -85,19 +85,23 @@ function sendMessage(event) {
     };
     let reqBodyAsk = {
         recipient: {id: sender},
-        message: askTemplate('WHAT ?')
+        message: askTemplate(' ?')
     };
     if (text === 'Hi' || text === 'hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
-        text = 'Hello, what is your first name ?';
+        textHi = 'Hello, what is your first name ?';
+        reqBody = {
+            recipient: {id: sender},
+            message: {text: textHi}
+        }
     }else{
-        // text = text;
+        reqBody = reqBody;
     }
   
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token: PAGE_ACCESS_TOKEN},
       method: 'POST',
-      json: reqBodyAsk
+      json: reqBody
     //   {
     //     recipient: {id: sender},
     //     message: {text: text}
