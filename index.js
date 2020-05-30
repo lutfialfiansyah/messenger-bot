@@ -112,7 +112,8 @@ app.post('/webhook', (req, res) => {
       body.entry.forEach(function(entry) {
         entry.messaging.forEach((event) => {
             if (event.message && event.message.text) {
-              sendMessage(event);
+                handlePostback(sender_psid, webhook_event.postback);
+                sendMessage(event);
             }
           });
         // let webhook_event = entry.messaging[0];
