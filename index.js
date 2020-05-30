@@ -17,6 +17,8 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
 
+let PAGE_ACCESS_TOKEN = "EAAk8AShemdgBAJyTi9bbVycGtzeIBoTuS6w99PMFLr0AsvbNmJnjUZCMpiYCH1VK95zKuLhn76gwtzK8FvEPDxJCEGOPDmNqZB2EowOPR4bhORYfETZCGDtNYcBCHemn4zTPZBjEK4WtrNeWoTmYlBIZC5UcPxOdLzkF6EffxeUdMssOySmyf";
+
 //routes
 app.get('/', function(req, res){
     res.send("Hi I'm a bot.");
@@ -28,7 +30,7 @@ function sendMessage(event) {
     let text = event.message.text;
   
     request({
-      url: 'https://graph.facebook.com/v7.0/me/messages',
+      url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token: PAGE_ACCESS_TOKEN},
       method: 'POST',
       json: {
