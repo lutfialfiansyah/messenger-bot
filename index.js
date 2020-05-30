@@ -48,30 +48,30 @@ app.get('/', function(req, res){
 //     // Send the message to acknowledge the postback
 // }
 
-// //ask template
-// function askTemplate(text){
-//     return {
-//         "attachment":{
-//             "type":"template",
-//             "payload":{
-//                 "template_type":"button",
-//                 "text": text,
-//                 "buttons":[
-//                     {
-//                         "type":"postback",
-//                         "title":"YES",
-//                         "payload":"YES"
-//                     },
-//                     {
-//                         "type":"postback",
-//                         "title":"NO",
-//                         "payload":"NO"
-//                     }
-//                 ]
-//             }
-//         }
-//     }
-// }
+//ask template
+function askTemplate(text){
+    return {
+        "attachment":{
+            "type":"template",
+            "payload":{
+                "template_type":"button",
+                "text": text,
+                "buttons":[
+                    {
+                        "type":"postback",
+                        "title":"YES",
+                        "payload":"YES"
+                    },
+                    {
+                        "type":"postback",
+                        "title":"NO",
+                        "payload":"NO"
+                    }
+                ]
+            }
+        }
+    }
+}
 
 
 //facebook
@@ -79,20 +79,29 @@ function sendMessage(event) {
     let sender = event.sender.id;
     let text = event.message.text;
     // let arrayUser = [];
+    let reqBody = {
+        recipient: {id: sender},
+        message: {text: text}
+    };
+    let reqBodyAsk = {
+        recipient: {id: sender},
+        message: askTemplate('WHAT ?')
+    };
     if (text === 'Hi' || text === 'hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
         text = 'Hello, what is your first name ?';
     }else{
-        text = text;
+        // text = text;
     }
   
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token: PAGE_ACCESS_TOKEN},
       method: 'POST',
-      json: {
-        recipient: {id: sender},
-        message: {text: text}
-      }
+      json: reqBodyAsk
+    //   {
+    //     recipient: {id: sender},
+    //     message: {text: text}
+    //   }
     }, function (error, response) {
       if (error) {
           console.log('Error sending message: ', error);
