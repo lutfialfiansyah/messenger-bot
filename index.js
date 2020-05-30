@@ -87,11 +87,11 @@ function sendMessage(event) {
         recipient: {id: sender},
         message: askTemplate(' ?')
     };
+    let textmsg = 'Hello, what is your first name ?';
     if (text === 'Hi' || text === 'hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
-        textHi = 'Hello, what is your first name ?';
         reqBody = {
             recipient: {id: sender},
-            message: {text: textHi}
+            message: {text: textmsg}
         }
     }else{
         reqBody = reqBody;
