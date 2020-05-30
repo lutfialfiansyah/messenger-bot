@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
+app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes
 app.get('/', function(req, res){
@@ -20,4 +21,4 @@ app.get('/webhook/', function(req, res){
     res.send("Wrong token");
 });
 
-app.listen(3000, () => console.log('Webhook server is listening port 3000'));
+app.listen(app.get('port'), () => console.log('Webhook server is listening port 5000'));
