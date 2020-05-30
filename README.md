@@ -1,4 +1,4 @@
-# Aww Bot (Messenger Chatbot)
+# Messenger Chatbot
 
 #### Installation instructions
 
