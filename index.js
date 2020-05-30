@@ -80,8 +80,7 @@ function sendMessage(event) {
     let text = event.message.text;
     let arrayUser = [];
     if (text === 'Hi' || text === 'Hai' || text === 'Hey' || text === 'Hallo') {
-        // text = 'Hello, what is your first name ?';
-        text = askTemplate('Do you want to know how many days until the next birthday ?');
+        text = 'Hello, what is your first name ?';
     }else{
         text = text;
     }
