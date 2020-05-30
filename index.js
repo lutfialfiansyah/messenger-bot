@@ -28,6 +28,9 @@ app.get('/', function(req, res){
 function sendMessage(event) {
     let sender = event.sender.id;
     let text = event.message.text;
+    if (text === 'Hi') {
+        text = 'Hello, what is your first name ?';
+    }
   
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -44,7 +47,7 @@ function sendMessage(event) {
           console.log('Error: ', response.body.error);
       }
     });
-  }
+}
   
 app.post('/webhook', (req, res) => {  
  
